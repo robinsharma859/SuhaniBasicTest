@@ -1,6 +1,7 @@
 package Driver;
 
 
+import Configuration.ConfigurationManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -33,7 +34,8 @@ public class ChromeBrowser {
             if(_driver==null) {
                 _driver = WebDriverManager.chromedriver().capabilities(_options).create();
                 _driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
-                _driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+                Integer driverTimeout = Integer.valueOf(ConfigurationManager.Instance().GetValue("GlobalWaitSeconds"));
+                _driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(driverTimeout));
             }
         }
         catch (Exception ex) {
