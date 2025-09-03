@@ -11,9 +11,10 @@ import java.time.Duration;
 public class EdgeBrowser {
     private WebDriver _driver = null;
     private EdgeOptions _options = null;
-
+    private boolean _headless =false;
     public EdgeBrowser()
     {
+        _headless =  Boolean.parseBoolean(ConfigurationManager.Instance().GetValue("HeadlessMode"));
         _options = new EdgeOptions();
         SetCapabilities();
 
@@ -22,6 +23,10 @@ public class EdgeBrowser {
     private void SetCapabilities() {
         _options.addArguments("--start-maximized");
         _options.addArguments("--disable-notifications");
+        if(_headless)
+        {
+            _options.addArguments("--headless");
+        }
     }
 
     public WebDriver LaunchBrowser() {

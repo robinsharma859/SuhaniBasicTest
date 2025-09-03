@@ -1,6 +1,8 @@
 package UIPages;
 
 import Driver.DriverInstance;
+import Reporting.ExtentManager;
+import com.aventstack.extentreports.Status;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,11 +24,16 @@ public class DashboardUI {
     {
         try
         {
+            ExtentManager.test.log(Status.INFO,"User has initiated Product Search");
+
             System.out.println("User has initiated Product Search");
             txtSearch.sendKeys(productName);
+            ExtentManager.test.log(Status.INFO,"Product Name: " + productName + "is entered in Search test box");
             System.out.println("Product Name: " + productName + "is entered in Search test box");
             Thread.sleep(500);
             btnSearch.click();
+            ExtentManager.test.log(Status.INFO,"Search Button is clicked");
+
             System.out.println("Search Button is clicked");
             Thread.sleep(3000);
         }

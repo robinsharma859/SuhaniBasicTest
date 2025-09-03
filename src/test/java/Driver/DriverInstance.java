@@ -13,6 +13,7 @@ public  class DriverInstance {
         if(_instance==null)
         {
             _instance =  BrowserFactory.InitilizeDriver(ConfigurationManager.Instance().GetValue("BrowserName"));
+            System.out.println("Driver Instance launched");
         }
         return _instance;
     }

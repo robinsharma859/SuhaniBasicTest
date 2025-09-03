@@ -15,10 +15,12 @@ public class ChromeBrowser {
 
     private WebDriver _driver = null;
     private ChromeOptions _options = null;
+    private boolean _headless = false;
 
     public ChromeBrowser()
     {
-        super();
+        String mode = ConfigurationManager.Instance().GetValue("HeadlessMode");
+        _headless =  Boolean.valueOf(mode);
         _options = new ChromeOptions();
         SetCapabilities();
 
@@ -27,6 +29,10 @@ public class ChromeBrowser {
     private void SetCapabilities() {
         _options.addArguments("--start-maximized");
         _options.addArguments("--disable-notifications");
+        if(_headless)
+        {
+            _options.addArguments("--headless");
+        }
     }
 
     public WebDriver LaunchBrowser() {

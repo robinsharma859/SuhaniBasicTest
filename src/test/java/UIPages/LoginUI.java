@@ -1,6 +1,8 @@
 package UIPages;
 
 import Driver.DriverInstance;
+import Reporting.ExtentManager;
+import com.aventstack.extentreports.Status;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -36,9 +38,12 @@ public class LoginUI
                 System.out.println("User Name and Password is Invalid or empty");
                  throw  new Exception("USer Name and Password is Empty");
             }
+            ExtentManager.test.log(Status.INFO,"User has navigated to login Screen");
 
             System.out.println("User has navigated to login Screen");
              txtemail.sendKeys(userName);
+            ExtentManager.test.log(Status.INFO,"User Name is Entered: " + userName);
+
             System.out.println("User Name is Entered: " + userName);
             Thread.sleep(1000);
              btnContinue.click();
@@ -46,16 +51,22 @@ public class LoginUI
             WebElement txtPassword = this._driver.findElement(By.id("ap_password"));
 
             WebElement btnSignIn = this._driver.findElement(By.id("signInSubmit"));
+            ExtentManager.test.log(Status.INFO,"User has entered the password " + password);
+
             System.out.println("User has entered the password " + password);
              txtPassword.sendKeys(password);
             btnSignIn.click();
             System.out.println("Sign in button is clicked");
-             Thread.sleep(3000);
+            ExtentManager.test.log(Status.INFO,"Sign in button is clicked");
+
+            Thread.sleep(3000);
 
         }
         catch (Exception ex)
         {
             System.out.println("Error occured while performing login into application" + ex.getMessage());
+            ExtentManager.test.log(Status.FAIL,"Error occured while performing login into application");
+
         }
     }
 
@@ -67,7 +78,9 @@ public class LoginUI
             WebElement validationMsg = this._driver.findElement(By.xpath("//div[@class='a-alert-content']"));
             var wait  =  new WebDriverWait(_driver, Duration.ofSeconds(20));
             wait.until(x -> validationMsg.isDisplayed());
+
             message = validationMsg.getText();
+            ExtentManager.test.log(Status.INFO,"Validatation Message => " + message);
         }
         catch (Exception ex)
         {
